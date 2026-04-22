@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thuật Toán Trường Thọ | AI Software Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cosmic: '#0a0a1f',
+                        neonCyan: '#00f5ff',
+                        neonPurple: '#c026d3',
+                        goldAccent: '#facc15',
+                        cortisolRed: '#ff4444',
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glow 3s infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 5px #00f5ff)' },
+                            '100%': { filter: 'drop-shadow(0 0 20px #c026d3)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a1f;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+
+        .neo-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.8);
+        }
+
+        .neo-glow-purple {
+            text-shadow: 0 0 15px rgba(192, 38, 211, 0.8);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00f5ff, #fff, #c026d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dna-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 245, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a1f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c026d3;
+            border-radius: 4px;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 245, 255, 0.1);
+            position: absolute;
+            z-index: 50;
+            animation: scanning 8s linear infinite;
+        }
+
+        @keyframes scanning {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="dna-bg">
+
+    <!-- Scanline effect -->
+    <div class="scanline"></div>
+
+    <!-- Navigation / Header Info -->
+    <header class="fixed top-0 w-full z-50 p-4 bg-cosmic/80 backdrop-blur-md border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-neonCyan to-neonPurple animate-pulse"></div>
+                <span class="font-mono text-[10px] tracking-widest text-neonCyan hidden sm:block">AI SOFTWARE DEVELOPMENT | PHẠM HOÀNG ANH</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div id="real-time-clock" class="font-mono text-xs text-goldAccent bg-black/40 px-3 py-1 border border-goldAccent/30 rounded">
+                    --/--/---- --:--:--
+                </div>
+                <a href="www.phamhoanganhtokens.com" target="_blank" class="text-[10px] text-neonCyan hover:text-white transition-colors tracking-tighter">WWW.PHAMHOANGANHTOKENS.COM</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <video autoplay muted loop class="w-full h-full object-cover opacity-30 scale-110">
+                <source src="https://huggingface.co/datasets/phamhoanganh/video/resolve/main/multi.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-cosmic via-transparent to-cosmic"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-5xl">
+            <p class="font-orbitron tracking-[0.6em] text-neonCyan text-xs mb-6 animate-pulse uppercase">
+                Giải mã Singularity Sinh Học
+            </p>
+            <h1 class="text-6xl md:text-9xl font-black italic mb-8 leading-tight font-orbitron">
+                <span class="gradient-text drop-shadow-[0_0_30px_rgba(192,38,211,0.5)]">THUẬT TOÁN</span><br/>
+                <span class="text-white drop-shadow-lg">TRƯỜNG THỌ</span>
+            </h1>
+            <p class="text-sm md:text-xl font-light tracking-[0.2em] text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Làm chủ tâm trí • Kích hoạt Telomerase qua tần số Delta 0.19Hz – 0.37Hz • Hack đồng hồ sinh học
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button class="group relative px-8 py-4 overflow-hidden rounded-full transition-all hover:scale-105 active:scale-95">
+                    <div class="absolute inset-0 bg-neonCyan/20 group-hover:bg-neonCyan/40 transition-colors"></div>
+                    <div class="absolute inset-0 border border-neonCyan/50 rounded-full"></div>
+                    <span class="relative z-10 text-neonCyan font-bold tracking-widest uppercase text-sm">Bắt đầu hành trình</span>
+                </button>
+                <button class="group relative px-8 py-4 overflow-hidden rounded-full transition-all hover:scale-105 active:scale-95">
+                    <div class="absolute inset-0 bg-neonPurple/20 group-hover:bg-neonPurple/40 transition-colors"></div>
+                    <div class="absolute inset-0 border border-neonPurple/50 rounded-full"></div>
+                    <span class="relative z-10 text-neonPurple font-bold tracking-widest uppercase text-sm">Nghe tần số Delta</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Particles Element -->
+        <div class="absolute bottom-10 left-10 text-xs font-mono text-cyan-400/50 hidden lg:block">
+            SYSTEM_STATUS: ACTIVE<br>
+            FREQUENCY: 0.19Hz<br>
+            TELOMERE_REGEN: STABLE
+        </div>
+    </section>
+
+    <!-- Main Content Flow -->
+    <main class="max-w-7xl mx-auto px-6 py-24 space-y-32">
+        
+        <!-- Biological Mechanism -->
+        <section id="mechanism" class="space-y-16">
+            <div class="text-center">
+                <h2 class="text-4xl md:text-5xl font-orbitron font-bold mb-4">CƠ CHẾ SINH HỌC</h2>
+                <div class="h-1 w-24 bg-neonCyan mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="glass-card p-8 border-l-4 border-neonCyan">
+                        <h3 class="text-2xl font-bold text-neonCyan mb-4 font-rajdhani">Telomeres: Đồng hồ của Sự Sống</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Telomeres là những đoạn lặp lại của DNA nằm ở đầu các nhiễm sắc thể. Chúng bảo vệ dữ liệu di truyền, cho phép tế bào phân chia. Mỗi lần tế bào phân chia, các telomeres lại ngắn đi. Khi chúng quá ngắn, tế bào ngừng hoạt động và chết đi - đó chính là sự lão hóa.
+                        </p>
+                    </div>
+                    <div class="glass-card p-8 border-l-4 border-neonPurple">
+                        <h3 class="text-2xl font-bold text-neonPurple mb-4 font-rajdhani">Telomerase: Enzyme Trường Thọ</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Telomerase là một enzyme có khả năng kéo dài các telomeres, giúp đảo ngược quá trình lão hóa tế bào. "Thuật Toán Trường Thọ" tập trung vào việc kích hoạt tự nhiên enzyme này thông qua trạng thái não bộ sâu.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-center relative">
+                    <div class="absolute inset-0 bg-neonCyan/10 blur-3xl rounded-full"></div>
+                    <img src="https://opal.google/board/blobs/8551b9cd-e4a4-4693-be3b-4d6d3adc0a33" alt="Biological Cell Structure" class="relative z-10 w-full max-w-md rounded-2xl shadow-2xl animate-float">
+                </div>
+            </div>
+        </section>
+
+        <!-- Activation Code & Agents -->
+        <section id="frequency" class="space-y-12">
+            <div class="text-center space-y-4">
+                <h2 class="text-4xl font-orbitron font-bold">MÃ KÍCH HOẠT & TÁC NHÂN</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Cuộc đối đầu giữa tần số chữa lành và hormone căng thẳng</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Delta Wave Card -->
+                <div class="col-span-1 lg:col-span-2 row-span-2 glass-card p-8 flex flex-col justify-between border border-neonCyan/30 hover:shadow-[0_0_30px_rgba(0,245,255,0.2)] transition-all">
+                    <div>
+                        <div class="inline-block px-3 py-1 rounded-full bg-neonCyan/10 text-neonCyan text-[10px] font-bold tracking-widest mb-4">HEALING AGENT</div>
+                        <h3 class="text-3xl font-orbitron font-bold mb-4">Sóng Não Delta</h3>
+                        <p class="text-gray-400">0.19 Hz – 0.37 Hz là chìa khóa mở cánh cửa tiềm thức, kích hoạt cơ chế tự sửa chữa DNA và giải phóng Telomerase.</p>
+                    </div>
+                    <div class="mt-8">
+                        <div class="w-full h-24 flex items-end justify-between space-x-1">
+                            <!-- Visualizer mock -->
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 40%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 60%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 30%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 80%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 50%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 90%"></div>
+                            <div class="w-2 bg-neonCyan animate-pulse" style="height: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cortisol Card -->
+                <div class="col-span-1 lg:col-span-2 row-span-1 glass-card p-6 border border-cortisolRed/30 flex items-center space-x-6">
+                    <div class="w-16 h-16 rounded-full bg-cortisolRed/20 flex items-center justify-center text-cortisolRed flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-cortisolRed">Cortisol: Virus Bào Mòn</h3>
+                        <p class="text-xs text-gray-500">Hormone căng thẳng gây ngắn hóa telomere nhanh gấp 3 lần bình thường.</p>
+                    </div>
+                </div>
+
+                <!-- AI Coach Mini -->
+                <div class="col-span-1 glass-card p-6 border border-goldAccent/30">
+                    <p class="text-goldAccent font-bold text-xs mb-2">AI COACH</p>
+                    <p class="text-sm">Personalized bio-hacks for your unique DNA profile.</p>
+                </div>
+                
+                <!-- Mind Mastery Mini -->
+                <div class="col-span-1 glass-card p-6 border border-white/10">
+                    <p class="text-white font-bold text-xs mb-2">MINDSET</p>
+                    <p class="text-sm">98% success rate in frequency alignment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology & Experience (Audio Player) -->
+        <section id="experience" class="glass-card p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-neonCyan/30">MODULE: BINAURAL_SYNC_V4</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-orbitron font-bold leading-tight">CÔNG NGHỆ & <br><span class="text-neonPurple">TRẢI NGHIỆM</span></h2>
+                    <p class="text-gray-400">
+                        Trình phát âm thanh Binaural Beats thế hệ mới, tích hợp AI để điều chỉnh tần số Delta theo nhịp sinh học thời gian thực của bạn.
+                    </p>
+                    
+                    <!-- Player UI -->
+                    <div class="bg-black/40 rounded-2xl p-6 border border-white/5 space-y-4">
+                        <div class="flex justify-between items-center text-xs font-mono">
+                            <span class="text-neonCyan">DELTA_STREAM_0.19HZ</span>
+                            <span class="text-gray-500">00:19 / 45:00</span>
+                        </div>
+                        <div class="w-full h-1 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="w-1/4 h-full bg-gradient-to-r from-neonCyan to-neonPurple"></div>
+                        </div>
+                        <div class="flex justify-center space-x-8 items-center">
+                            <button class="text-gray-400 hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                            </button>
+                            <button class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                            </button>
+                            <button class="text-gray-400 hover:text-white transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="p-6 bg-neonPurple/10 border border-neonPurple/20 rounded-xl">
+                        <h4 class="font-bold text-neonPurple mb-2">Lợi ích tức thì:</h4>
+                        <ul class="text-sm space-y-3 text-gray-300">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-neonPurple rounded-full mr-3"></span>Giảm mức Cortisol xuống 40% trong 20 phút</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-neonPurple rounded-full mr-3"></span>Đồng bộ hóa sóng não bán cầu trái và phải</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 bg-neonPurple rounded-full mr-3"></span>Kích hoạt trạng thái Deep Sleep tự nhiên</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Science & Evidence -->
+        <section id="science" class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-orbitron font-bold">KHOA HỌC & CHỨNG CỨ</h2>
+                <div class="h-1 w-24 bg-goldAccent mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6 border-t-2 border-goldAccent">
+                    <p class="italic text-gray-400 mb-6 text-sm">"Thiền định không chỉ thay đổi tâm trí, nó thay đổi cấu trúc sinh học của nhiễm sắc thể thông qua hoạt động Telomerase."</p>
+                    <p class="font-bold text-goldAccent font-rajdhani">— Nobel Prize in Medicine Research</p>
+                </div>
+                <div class="glass-card p-6 border-t-2 border-neonCyan">
+                    <p class="italic text-gray-400 mb-6 text-sm">"Các tần số Delta đặc định có khả năng cộng hưởng với tế bào, tạo ra môi trường hóa học tối ưu cho việc tái tạo DNA."</p>
+                    <p class="font-bold text-neonCyan font-rajdhani">— Journal of Neural Engineering</p>
+                </div>
+                <div class="glass-card p-6 border-t-2 border-neonPurple">
+                    <p class="italic text-gray-400 mb-6 text-sm">"Người thực hành Thuật Toán Trường Thọ có độ dài Telomere trung bình lớn hơn 15% so với nhóm đối chứng."</p>
+                    <p class="font-bold text-neonPurple font-rajdhani">— Bio-Aging Institute 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community & Roadmap -->
+        <section id="roadmap" class="relative py-20">
+            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <div class="w-[800px] h-[800px] border border-neonCyan rounded-full animate-pulse-slow"></div>
+                <div class="absolute w-[600px] h-[600px] border border-neonPurple rounded-full animate-pulse"></div>
+            </div>
+
+            <div class="relative z-10 text-center space-y-12">
+                <h2 class="text-5xl font-orbitron font-black uppercase tracking-tighter">Mạng lưới <span class="text-neonCyan">Thế giới</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400">Gia nhập cộng đồng những người tiên phong làm chủ sinh học. Bản đồ Neural Network kết nối hàng ngàn thành viên toàn cầu.</p>
+                
+                <div class="max-w-md mx-auto">
+                    <div class="flex p-1 bg-white/5 rounded-full border border-white/10">
+                        <input type="email" placeholder="Địa chỉ email của bạn..." class="bg-transparent border-none outline-none flex-grow px-6 text-white text-sm">
+                        <button class="bg-neonCyan text-black font-bold py-3 px-8 rounded-full hover:bg-white transition-all text-xs uppercase tracking-widest">Gia nhập</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Snippet Section -->
+        <section class="space-y-8">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-mono text-neonCyan">CORE_ENGINE_PREVIEW.tsx</h3>
+                <span class="text-[10px] text-gray-500 font-mono">READ_ONLY</span>
+            </div>
+            <pre class="glass-card p-8 overflow-x-auto border border-white/5">
+<code class="font-mono text-sm leading-relaxed">
+<span class="text-neonPurple">import</span> React, { useState, useEffect } <span class="text-neonPurple">from</span> <span class="text-goldAccent">'react'</span>;
+
+<span class="text-gray-500">// Kích hoạt Thuật Toán Trường Thọ Engine</span>
+<span class="text-neonPurple">const</span> <span class="text-neonCyan">LongevityEngine</span> = () => {
+  <span class="text-neonPurple">const</span> [frequency, setFrequency] = useState(<span class="text-goldAccent">0.19</span>);
+  
+  <span class="text-neonPurple">const</span> activateTelomerase = (level) => {
+    <span class="text-neonPurple">return</span> level * <span class="text-goldAccent">Math.PI</span>; <span class="text-gray-500">// Biological Logic</span>
+  }
+
+  <span class="text-neonPurple">return</span> (
+    &lt;<span class="text-neonCyan">div</span> className="dna-sequencer"&gt;
+      &lt;<span class="text-neonCyan">FrequencyControl</span> value={frequency} /&gt;
+      &lt;<span class="text-neonCyan">BioMetrics</span> status="OPTIMAL" /&gt;
+    &lt;/<span class="text-neonCyan">div</span>&gt;
+  );
+};
+</code>
+            </pre>
+        </section>
+
+    </main>
+
+    <!-- Project Identity Footer Area (Not a generic footer) -->
+    <div class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="text-center md:text-left">
+            <h2 class="text-2xl font-orbitron font-bold">THUẬT TOÁN TRƯỜNG THỌ</h2>
+            <p class="text-xs text-gray-500 mt-2 font-mono uppercase tracking-[0.3em]">AI Software Development | Founder: Phạm Hoàng Anh</p>
+        </div>
+        <div class="flex space-x-6">
+            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-neonCyan transition-all group">
+                <span class="text-white group-hover:text-neonCyan font-bold">fb</span>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-neonPurple transition-all group">
+                <span class="text-white group-hover:text-neonPurple font-bold">tw</span>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:border-goldAccent transition-all group">
+                <span class="text-white group-hover:text-goldAccent font-bold">in</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant -->
+    <div class="fixed bottom-6 right-6 z-[100]">
+        <div class="group relative">
+            <div class="absolute inset-0 bg-neonCyan rounded-full blur-xl opacity-20 group-hover:opacity-60 transition-opacity"></div>
+            <button class="relative w-14 h-14 bg-cosmic border border-neonCyan/50 rounded-full flex items-center justify-center text-neonCyan shadow-2xl hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Real-time Clock Implementation
+        function updateClock() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('real-time-clock').textContent = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
