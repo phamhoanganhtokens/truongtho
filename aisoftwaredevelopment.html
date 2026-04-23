@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phạm Hoàng Anh | AI Software Development</title>
+<meta name="description" content="Phạm Hoàng Anh - CEO AI Software Development. Chuyên phát triển các giải pháp AI Agent thông minh cho Bất động sản, Trade và Crypto.">
+<meta property="og:title" content="Phạm Hoàng Anh | AI Software Development">
+<meta property="og:description" content="Kiến tạo tương lai với AI Agent chuyên sâu. Tối ưu hóa đầu tư và ra quyết định thông minh.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://phamhoanganhtokens.github.io/AI-Software-Development/images/ceo.JPG">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        serif: ['"Times New Roman"', 'Times', 'serif'],
+      },
+      colors: {
+        gold: '#C5A059',
+        darkBg: '#050505',
+        glass: 'rgba(255, 255, 255, 0.05)',
+      },
+      animation: {
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  body {
+    background-color: #050505;
+    color: #f0f0f0;
+    font-family: 'Times New Roman', Times, serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  .text-justify { text-align: justify; }
+  
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.17, 0.55, 0.55, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 3D Carousel */
+  .carousel-view {
+    perspective: 2000px;
+    width: 100%;
+    height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .carousel-container {
+    position: relative;
+    width: 320px;
+    height: 450px;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .carousel-card {
+    position: absolute;
+    width: 320px;
+    height: 450px;
+    left: 0;
+    top: 0;
+    border-radius: 24px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backface-visibility: hidden;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+  }
+  
+  .nav-btn {
+    background: rgba(197, 160, 89, 0.15);
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    color: #C5A059;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .nav-btn:hover {
+    background: rgba(197, 160, 89, 0.85);
+    color: #000;
+  }
+  
+  .luxury-gradient {
+    background: linear-gradient(135deg, #C5A059 0%, #8E6E3E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .cta-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .cta-button::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: 0.5s;
+  }
+  .cta-button:hover::after { left: 100%; }
+</style>
+</head>
+
+<body class="selection:bg-gold selection:text-black">
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 py-6 px-10">
+  <nav class="flex justify-between items-center max-w-7xl mx-auto glass-panel rounded-full px-8 py-3">
+    <div class="text-xl font-bold tracking-widest luxury-gradient">PHẠM HOÀNG ANH</div>
+    <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest">
+      <a href="#hero" class="hover:text-gold transition">Trang Chủ</a>
+      <a href="#about" class="hover:text-gold transition">Giới Thiệu</a>
+      <a href="#agents" class="hover:text-gold transition">AI Agents</a>
+      <a href="#vision" class="hover:text-gold transition">Tầm Nhìn</a>
+      <a href="#contact" class="hover:text-gold transition">Liên Hệ</a>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section id="hero" class="min-h-screen flex flex-col items-center justify-center pt-24 px-6 relative">
+  <div class="max-w-4xl text-center reveal">
+    <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter luxury-gradient">PHẠM HOÀNG ANH</h1>
+    <h2 class="text-xl md:text-2xl text-gray-400 mb-8 uppercase tracking-[0.3em] font-light">
+      CEO AI Software Development
+    </h2>
+    <div class="h-px w-32 bg-gold mx-auto mb-8"></div>
+    <p class="text-lg md:text-xl text-gray-300 mb-12 text-justify max-w-2xl mx-auto leading-relaxed">
+      Tận dụng sức mạnh của trí tuệ nhân tạo để xây dựng các AI Agent thông minh, hỗ trợ đưa ra những quyết định thực tế chính xác trong kinh doanh và đầu tư. Chúng tôi giúp bạn nắm bắt cơ hội và giảm thiểu rủi ro tối đa.
+    </p>
+    <div class="flex flex-col md:flex-row gap-6 justify-center">
+      <a href="#agents" class="cta-button px-10 py-4 bg-gold text-black font-bold rounded-lg hover:scale-105">Khám phá các AI Agent</a>
+      <a href="#contact" class="cta-button px-10 py-4 border border-gold text-gold font-bold rounded-lg hover:bg-gold hover:text-black">Liên hệ tư vấn ngay</a>
+    </div>
+  </div>
+  
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="py-12 border-y border-white/10 bg-white/5">
+  <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div class="reveal"><div class="text-3xl font-bold text-gold">80%+</div><div class="text-xs uppercase tracking-widest text-gray-500">Độ chính xác Trade</div></div>
+    <div class="reveal"><div class="text-3xl font-bold text-gold">1000+</div><div class="text-xs uppercase tracking-widest text-gray-500">Người dùng tin tưởng</div></div>
+    <div class="reveal"><div class="text-3xl font-bold text-gold">24/7</div><div class="text-xs uppercase tracking-widest text-gray-500">Hỗ trợ thời gian thực</div></div>
+    <div class="reveal"><div class="text-3xl font-bold text-gold">Top 1</div><div class="text-xs uppercase tracking-widest text-gray-500">AI Agent chuyên biệt</div></div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-32 px-6">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
+    <div class="w-full md:w-1/2 reveal">
+      <div class="relative group">
+        <div class="absolute -inset-4 bg-gold/20 rounded-2xl blur-xl group-hover:bg-gold/30 transition"></div>
+        <div class="relative aspect-[3/4] glass-panel rounded-2xl overflow-hidden shadow-2xl">
+          <img src="https://phamhoanganhtokens.github.io/AI-Software-Development/images/ceo.JPG" 
+               alt="Phạm Hoàng Anh - CEO AI Software Development" 
+               class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 reveal">
+      <h3 class="text-4xl font-bold mb-6 luxury-gradient italic">Phạm Hoàng Anh</h3>
+      <p class="text-lg text-gray-300 text-justify leading-relaxed mb-6">
+        Là CEO của AI Software Development, tôi tập trung vào việc kiến tạo những hệ thống trí tuệ nhân tạo có khả năng thực thi thay vì chỉ dừng lại ở lý thuyết. Tôi tin rằng công nghệ AI chỉ thực sự có giá trị khi nó giải quyết được các bài toán hóc búa của người dùng trong đời thực.
+      </p>
+      <p class="text-lg text-gray-300 text-justify leading-relaxed">
+        Sứ mệnh của tôi là mang công nghệ AI đẳng cấp thế giới đến gần hơn với các nhà đầu tư và cá nhân tại Việt Nam, giúp mọi người đưa ra những quyết định thông thái hơn, dựa trên dữ liệu và phân tích logic thay vì cảm tính.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section id="vision" class="py-32 bg-white/3 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+    <div class="glass-panel p-10 rounded-3xl reveal">
+      <h4 class="text-2xl font-bold text-gold mb-6 uppercase tracking-widest">Tầm Nhìn</h4>
+      <p class="text-gray-300 text-justify leading-relaxed">
+        Trở thành người tiên phong tại Việt Nam trong lĩnh vực cá nhân hóa AI Agent. Chúng tôi hướng tới một tương lai nơi mọi quyết định đầu tư lớn nhỏ đều có sự đồng hành của một cố vấn AI thông minh, giúp loại bỏ rào cản về tâm lý và kinh nghiệm cho mọi tầng lớp người dùng.
+      </p>
+    </div>
+    <div class="glass-panel p-10 rounded-3xl reveal">
+      <h4 class="text-2xl font-bold text-gold mb-6 uppercase tracking-widest">Sứ Mệnh</h4>
+      <p class="text-gray-300 text-justify leading-relaxed">
+        Cung cấp những công cụ phân tích dữ liệu chuyên sâu và mô phỏng chiến lược tối ưu nhất. Sứ mệnh của chúng tôi là minh bạch hóa cơ hội, quản trị rủi ro chuyên nghiệp và mang lại sự an tâm tuyệt đối cho khách hàng trong các thị trường biến động như Bất động sản và Tài chính.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- AI Agents Carousel -->
+<section id="agents" class="py-32 px-6 overflow-hidden">
+  <div class="max-w-7xl mx-auto text-center mb-16 reveal">
+    <h3 class="text-4xl md:text-5xl font-bold mb-4 luxury-gradient tracking-tight">CÁC AI AGENT CHUYÊN BIỆT</h3>
+    <p class="text-gray-400">Những cánh tay đắc lực trong kỷ nguyên công nghệ số</p>
+  </div>
+
+  <div class="carousel-view">
+    <div class="carousel-container" id="carousel">
+      <!-- Card 1: Bất động sản -->
+      <div class="carousel-card">
+        <div>
+          <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center text-gold mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          </div>
+          <h4 class="text-2xl font-bold mb-4">AI Agent Bất Động Sản</h4>
+          <p class="text-sm text-gray-400 text-justify leading-relaxed">
+            Hỗ trợ môi giới, tư vấn thiết kế, pháp lý quy hoạch và đánh giá phong thủy theo tuổi. Phân tích tiềm năng và rủi ro thị trường nhà đất một cách khách quan.
+          </p>
+        </div>
+        <button onclick="window.open('https://phamhoanganhtokens.github.io/aibatdongsan/index', '_blank')" 
+        class="nav-btn mt-6 w-full">
+  Thử ngay
+</button>
+      </div>
+
+      <!-- Card 2: Trade -->
+      <div class="carousel-card">
+        <div>
+          <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center text-gold mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+          </div>
+          <h4 class="text-2xl font-bold mb-4">AI Agent Trade</h4>
+          <p class="text-sm text-gray-400 text-justify leading-relaxed">
+            Tư vấn giao dịch Bitcoin, Vàng, Dầu. Phân tích tâm lý, đề xuất điểm Entry, TP, SL với độ chính xác trên 80% từ dữ liệu backtest chuyên sâu.
+          </p>
+        </div>
+<button onclick="window.open('https://phamhoanganhtokens.github.io/aitradepro/xau4767wait.html', '_blank')" 
+        class="nav-btn mt-6 w-full">
+  Thử ngay
+</button>
+      </div>
+
+      <!-- Card 3: Investment -->
+      <div class="carousel-card">
+        <div>
+          <div class="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center text-gold mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h4 class="text-2xl font-bold mb-4">AI Agent Investment</h4>
+          <p class="text-sm text-gray-400 text-justify leading-relaxed">
+Cố vấn đầu tư toàn diện cho các dự án bất động sản, chứng khoán, cổ phiếu, quỹ và tài sản khác. Phân tích cơ hội, đánh giá rủi ro, xây dựng danh mục tối ưu và đề xuất chiến lược dài hạn dựa trên dữ liệu thực tế.
+          </p>
+        </div>
+<button onclick="window.open('https://phamhoanganhtokens.github.io/aidautu/hag1.html', '_blank')" 
+        class="nav-btn mt-6 w-full">
+  Thử ngay
+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center gap-6 mt-12">
+    <button class="nav-btn" onclick="rotateCarousel(-1)">← Trước đó</button>
+    <button class="nav-btn" onclick="rotateCarousel(1)">Tiếp theo →</button>
+  </div>
+</section>
+
+<!-- Quy trình -->
+<section class="py-32 px-6 bg-white/2">
+  <div class="max-w-5xl mx-auto">
+    <h3 class="text-3xl font-bold mb-16 text-center luxury-gradient uppercase tracking-widest">Quy trình hỗ trợ thông minh</h3>
+    <div class="relative">
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gold/20 -translate-x-1/2"></div>
+      
+      <div class="space-y-16">
+        <div class="flex flex-col md:flex-row items-center reveal">
+          <div class="w-full md:w-1/2 md:pr-12 text-center md:text-right">
+            <div class="text-gold font-bold text-lg mb-2">BƯỚC 01</div>
+            <h5 class="text-xl font-bold mb-4">Tiếp nhận yêu cầu</h5>
+            <p class="text-gray-400 text-justify">Thu thập các thông số, mong muốn và mục tiêu cụ thể từ khách hàng để xác định bài toán cần giải quyết.</p>
+          </div>
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-black font-bold z-10 my-4 md:my-0 shadow-[0_0_20px_rgba(197,160,89,0.5)]">1</div>
+          <div class="w-full md:w-1/2 md:pl-12"></div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row-reverse items-center reveal">
+          <div class="w-full md:w-1/2 md:pl-12 text-center md:text-left">
+            <div class="text-gold font-bold text-lg mb-2">BƯỚC 02</div>
+            <h5 class="text-xl font-bold mb-4">Phân tích dữ liệu</h5>
+            <p class="text-gray-400 text-justify">Hệ thống xử lý hàng triệu điểm dữ liệu thời gian thực kết hợp cùng bối cảnh lịch sử để tìm phương án tối ưu.</p>
+          </div>
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-black font-bold z-10 my-4 md:my-0 shadow-[0_0_20px_rgba(197,160,89,0.5)]">2</div>
+          <div class="w-full md:w-1/2 md:pr-12"></div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center reveal">
+          <div class="w-full md:w-1/2 md:pr-12 text-center md:text-right">
+            <div class="text-gold font-bold text-lg mb-2">BƯỚC 03</div>
+            <h5 class="text-xl font-bold mb-4">Tư vấn cụ thể</h5>
+            <p class="text-gray-400 text-justify">Cung cấp các đề xuất mang tính hành động cao với độ tin cậy tuyệt đối.</p>
+          </div>
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-black font-bold z-10 my-4 md:my-0 shadow-[0_0_20px_rgba(197,160,89,0.5)]">3</div>
+          <div class="w-full md:w-1/2 md:pl-12"></div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row-reverse items-center reveal">
+          <div class="w-full md:w-1/2 md:pl-12 text-center md:text-left">
+            <div class="text-gold font-bold text-lg mb-2">BƯỚC 04</div>
+            <h5 class="text-xl font-bold mb-4">Theo dõi & Điều chỉnh</h5>
+            <p class="text-gray-400 text-justify">Cập nhật biến động thị trường và tự động điều chỉnh lời khuyên để đạt kết quả tốt nhất.</p>
+          </div>
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center text-black font-bold z-10 my-4 md:my-0 shadow-[0_0_20px_rgba(197,160,89,0.5)]">4</div>
+          <div class="w-full md:w-1/2 md:pr-12"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-32 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+    <div class="reveal">
+      <h3 class="text-4xl font-bold mb-6 luxury-gradient italic">Liên hệ tư vấn</h3>
+      <p class="text-gray-400 mb-10 text-justify">
+        Đừng để những quyết định quan trọng phụ thuộc vào may mắn. Hãy để AI giúp bạn nhìn xa hơn và hành động chuẩn xác hơn.
+      </p>
+      <div class="space-y-6">
+        <a href="#" class="flex items-center space-x-4 p-4 glass-panel rounded-xl hover:bg-white/10 transition group">
+          <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-xl group-hover:bg-gold group-hover:text-black transition">Z</div>
+          <div>
+            <div class="text-sm text-gray-500">Zalo</div>
+            <div class="font-bold">0903344551</div>
+          </div>
+        </a>
+        <a href="https://t.me/phamhoanganhtokens" target="_blank" class="flex items-center space-x-4 p-4 glass-panel rounded-xl hover:bg-white/10 transition group">
+          <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center group-hover:bg-gold group-hover:text-black transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.89.03-.24.37-.48 1.02-.73 4-1.74 6.67-2.88 8.01-3.41 3.81-1.52 4.6-1.79 5.12-1.79.11 0 .37.03.53.16.14.11.18.27.2.42.02.13.02.26 0 .39z"/></svg>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500">Telegram</div>
+            <div class="font-bold">@CEO AI Software Development</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="glass-panel p-8 rounded-3xl reveal">
+      <form class="space-y-6" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã gửi yêu cầu. Chúng tôi sẽ liên hệ lại sớm nhất!');">
+        <div>
+          <label class="block text-sm text-gray-500 mb-2">Họ và Tên</label>
+          <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-gold outline-none transition">
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500 mb-2">Số điện thoại / Email</label>
+          <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-gold outline-none transition">
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500 mb-2">Lĩnh vực quan tâm</label>
+          <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-gold outline-none transition appearance-none text-gray-300">
+            <option value="bds">Bất động sản</option>
+            <option value="trade">Giao dịch (Trade)</option>
+            <option value="crypto">Tài sản Crypto</option>
+            <option value="khac">Tư vấn giải pháp khác</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500 mb-2">Nội dung yêu cầu</label>
+          <textarea rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-gold outline-none transition"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-gold text-black font-bold py-4 rounded-lg hover:shadow-[0_0_30px_rgba(197,160,89,0.3)] transition">GỬI YÊU CẦU</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-12 border-t border-white/10 text-center px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-gold font-bold tracking-widest mb-6">AI SOFTWARE DEVELOPMENT</div>
+    <p class="text-xs text-gray-500 max-w-2xl mx-auto mb-8">
+      Tư vấn không thay thế lời khuyên chuyên môn. Mọi quyết định đầu tư cuối cùng thuộc về người dùng.
+    </p>
+    <div class="text-sm text-gray-600">
+      Tất cả quyền được bảo lưu.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Background particles
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function initCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  particles = [];
+  for (let i = 0; i < 70; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      radius: Math.random() * 2 + 0.5
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(197, 160, 89, 0.25)';
+  
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    p.x += p.vx;
+    p.y += p.vy;
+    
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  });
+
+  // Connect particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 150) {
+        ctx.strokeStyle = `rgba(197, 160, 89, ${1 - dist / 150})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize', initCanvas);
+initCanvas();
+draw();
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('active');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// 3D Carousel
+let currentRotation = 0;
+const carousel = document.getElementById('carousel');
+const gapAngle = 120;
+
+function setupCarousel() {
+  const cards = document.querySelectorAll('.carousel-card');
+  cards.forEach((card, index) => {
+    const angle = index * gapAngle;
+    card.style.transform = `rotateY(${angle}deg) translateZ(350px)`;
+  });
+}
+
+function rotateCarousel(direction) {
+  currentRotation -= direction * gapAngle;
+  carousel.style.transform = `rotateY(${currentRotation}deg)`;
+}
+
+setupCarousel();
+
+// Hero mouse tilt effect
+const hero = document.getElementById('hero');
+hero.addEventListener('mousemove', (e) => {
+  const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+  const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+  const content = hero.querySelector('.reveal');
+  if (content) content.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
+hero.addEventListener('mouseleave', () => {
+  const content = hero.querySelector('.reveal');
+  if (content) content.style.transform = 'rotateY(0) rotateX(0)';
+});
+</script>
+</body>
+</html>
